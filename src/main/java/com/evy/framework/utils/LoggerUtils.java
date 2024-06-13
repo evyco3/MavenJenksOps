@@ -32,7 +32,6 @@ public class LoggerUtils {
                 case ERROR -> org.apache.logging.log4j.Level.ERROR;
                 case WARNING -> org.apache.logging.log4j.Level.WARN;
                 case DEBUG -> org.apache.logging.log4j.Level.DEBUG;
-                default -> throw new IllegalArgumentException("Unsupported log type: " + logType);
             };
         }
     }

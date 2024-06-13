@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
-    <test verbose="2" preserve-order="true" name="G:/java/MavenJenksOps">
+    <listeners>
+        <listener class-name="com.evy.framework.listeners.ListenerManager"/>
+    </listeners>
+    <test  name="MavenJenksOps" parallel="classes">
         <classes>
-            <class name="com.evy.test.BaseTest"/>
+            <class name="com.evy.test.LoginTest"/>
         </classes>
     </test>
 </suite>
