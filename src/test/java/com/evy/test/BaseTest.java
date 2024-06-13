@@ -1,11 +1,20 @@
 package com.evy.test;
 
-import org.testng.annotations.Test;
+
+import com.evy.framework.drivers.DriverManager;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+
 
 public class BaseTest {
 
-    @Test
-    public void test(){
-        System.out.println("A");
+    @BeforeMethod
+    public void setup(){
+        DriverManager.getInstance().initDriver();
+    }
+
+    @AfterMethod
+    public void tearDown(){
+        DriverManager.getInstance().quitDriver();
     }
 }
