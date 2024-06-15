@@ -8,6 +8,7 @@
         <classes>
             <class name="com.evy.test.LoginTest"/>
             <class name="com.evy.test.RegistrationTest"/>
+            <class name="com.evy.test.ProductDropdownTest"/>
         </classes>
     </test>
 </suite>
