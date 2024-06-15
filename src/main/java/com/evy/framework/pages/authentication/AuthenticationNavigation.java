@@ -29,9 +29,9 @@ public class AuthenticationNavigation extends BasePage {
         return new LoginPage();
     }
 
-    public RegisterPage navigateToRegisterPage(){
+    public RegistrationPage navigateToRegisterPage(){
         navigateAndLog(registerLink,"register link","Create New Customer Account","RegisterPage");
-        return new RegisterPage();
+        return new RegistrationPage();
     }
 
 

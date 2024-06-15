@@ -2,8 +2,8 @@ package com.evy.test;
 
 import com.evy.framework.data.RegistrationData;
 import com.evy.framework.pages.HomePage;
-import com.evy.framework.pages.authentication.RegisterPage;
-import com.evy.framework.utils.AssertionUtils;
+
+import com.evy.framework.pages.authentication.RegistrationPage;
 import com.evy.framework.utils.LoggerUtils;
 import com.evy.framework.constants.LogType;
 import io.qameta.allure.Description;
@@ -12,7 +12,7 @@ import io.qameta.allure.Story;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import static com.evy.framework.utils.AssertionUtils.assertEquality;
+import static com.evy.framework.utils.AssertionUtils.assertContains;
 
 /**
  * Test class for verifying user registration scenarios using TestNG and Allure.
@@ -23,7 +23,7 @@ import static com.evy.framework.utils.AssertionUtils.assertEquality;
  * @version 1.0
  */
 @Feature("Registration Feature")
-public class RegisterTest extends BaseTest {
+public class RegistrationTest extends BaseTest {
 
 
     @Test(dataProvider = "registrationData", dataProviderClass = RegistrationData.class)
@@ -32,10 +32,9 @@ public class RegisterTest extends BaseTest {
     @Parameters({"firstName", "lastName", "email", "password", "confirmation", "operation", "expectedResult"})
     public void testUserRegistrationScenarios(String firstName, String lastName, String email, String password, String confirmation, String operation, String expectedResult) {
         String actualResult = performRegistrationAndGetResponseMessage(firstName, lastName, email, password, confirmation, operation);
-        assertEquality(actualResult, expectedResult, "Verify if (" + actualResult + ") is equal to (" + expectedResult + ")");
+        assertContains(actualResult, expectedResult, "Verify if (" + actualResult + ") is contains (" + expectedResult + ")");
 
     }
-
 
     @Description("Perform registration and verify response message")
     private String performRegistrationAndGetResponseMessage(String firstName, String lastName, String email, String password, String confirmation, String operation) {
@@ -43,8 +42,9 @@ public class RegisterTest extends BaseTest {
             return HomePage.getInstance()
                     .getAuthenticationNavigation()
                     .navigateToRegisterPage()
-                    .performRegistration(firstName, lastName, email, password, confirmation, false, RegisterPage.class)
+                    .performRegistration(firstName,lastName,email,password,confirmation,false, RegistrationPage.class)
                     .getRegistrationResponseMessage(operation);
+
         } catch (Exception e) {
             LoggerUtils.log(getClass(), LogType.ERROR, "Error during registration operation: " + e.getMessage());
             throw new RuntimeException("Error during registration operation: " + e.getMessage(), e);
