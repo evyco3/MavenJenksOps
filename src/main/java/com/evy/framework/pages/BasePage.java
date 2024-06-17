@@ -1,17 +1,14 @@
 package com.evy.framework.pages;
 
 
+import com.evy.framework.constants.LogType;
 import com.evy.framework.drivers.DriverManager;
 import com.evy.framework.utils.ActionUtils;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import com.evy.framework.utils.LoggerUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 
 import java.time.Duration;
 
@@ -24,11 +21,13 @@ public class BasePage {
         PageFactory.initElements(driver,this);
     }
 
-    protected void sendKeys(WebElement element,String value,String elementName){
-        ActionUtils.execAction(getClass(),()->
-                waitForElementToBeVisible(element).sendKeys(value),
-                "Send keys to "+elementName+":"+value,
-                "Failed to send keys to "+elementName
+    protected void sendKeys(WebElement element, String value, String elementName) {
+        ActionUtils.execAction(getClass(), () -> {
+                    waitForElementToBeVisible(element).clear();
+                    waitForElementToBeVisible(element).sendKeys(value);
+                },
+                "Send keys to " + elementName + ": " + value,
+                "Failed to send keys to " + elementName
         );
     }
 
@@ -81,12 +80,27 @@ public class BasePage {
         );
     }
 
+    protected void selectByVisibleText(WebElement element, String value, String elementName) {
+        ActionUtils.execAction(getClass(), () -> {
+            Select select = new Select(element);
+            select.selectByVisibleText(value);
+        }, "Select '" + value + "' in " + elementName, "Failed to select '" + value + "' in " + elementName);
+    }
 
-    protected WebElement waitForElementToBeVisible(WebElement element){
-        Wait<WebDriver> wait = new FluentWait<>(driver)
+
+    protected WebElement waitForElementToBeVisible(WebElement element) {
+        Wait<WebDriver> wait = new FluentWait<>(DriverManager.getInstance().getDriver())
                 .withTimeout(Duration.ofSeconds(10))
                 .pollingEvery(Duration.ofMillis(500))
-                .ignoring(Exception.class);
-        return wait.until(ExpectedConditions.visibilityOf(element));
+                .ignoring(NoSuchElementException.class)
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(ElementNotInteractableException.class);
+        return wait.until(driver -> {
+            return ExpectedConditions.visibilityOf(element).apply(driver);
+        });
     }
+
+
+
+
 }

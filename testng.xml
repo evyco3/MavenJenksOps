@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite">
+<suite name="MavenSuits">
     <listeners>
         <listener class-name="com.evy.framework.listeners.ListenerManager"/>
     </listeners>
@@ -9,6 +9,9 @@
             <class name="com.evy.test.LoginTest"/>
             <class name="com.evy.test.RegistrationTest"/>
             <class name="com.evy.test.ProductDropdownTest"/>
+            <class name="com.evy.test.ProductListingPageTests"/>
+            <class name="com.evy.test.ProductPageTest"/>
+            <class name="com.evy.test.EndToEndTest"/>
         </classes>
     </test>
 </suite>

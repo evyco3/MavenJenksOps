@@ -13,7 +13,7 @@ public class ProductDropdownData {
                 {"Men","Tops","Tees","tees-men.html"},
                 {"Men","Tops","Tanks","tanks-men.html"},
                 {"Men","Bottoms","Pants","pants-men.html"},
-                {"Men","Tops","Shorts","shorts-men.html"},
+                {"Men","Bottoms","Shorts","shorts-men.html"},
 
 
 
